@@ -11,11 +11,16 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post= Post.new(memo:[:memo])
+    @post= Post.new(post_params)
+  end
+
+  def destroy
+    @post=Post.find_by(params[:id])
+    @post.destroy
   end
 
  private
   def post_params
-    params.require(:post).permit(:memo)
+    params.require(:post).permit(:image,:text,:name)
   end
 end
