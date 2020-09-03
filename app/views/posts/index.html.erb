@@ -1,9 +1,10 @@
-<h1>トップページ</h1>
- "Hello, World"
-<%= link_to '投稿ページ', 'post/new' %>
-<% @posts. each do |post| %>
-<div>
- <%= post_memo %>
- <%= post_created_at %>
+<div class="contents row">
+  <% @posts.each do |post| %>
+    <div class="content_post" style="background-image: url(<%= post.image %>);">
+      <p><%= post.text %></p>
+      <span class="name">
+        <%= post.name %>
+      </span>
+    </div>
+  <% end %>
 </div>
-<%end %>
