@@ -1,6 +1,7 @@
 #frozen_string_literal: true
 
 class PostsController < ApplicationController
+  before_action :set_post, only[:show, :edit]
 
   def index
     @posts= Post.all
@@ -12,6 +13,17 @@ class PostsController < ApplicationController
 
   def create
     @post= Post.new(post_params)
+  end
+
+  def edit
+  end
+
+  def update
+    @post=Post.find_by(params[:id])
+    @post.update(post_params)
+  end
+
+  def show
   end
 
   def destroy
