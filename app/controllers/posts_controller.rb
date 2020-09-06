@@ -1,15 +1,15 @@
 #frozen_string_literal: true
 
 class PostsController < ApplicationController
- before_action :set_post, only[:edit, :show]
- before_action :move_to_index, only[:index, :show]
+ before_action :set_post, only: [:edit, :show]
+ before_action :move_to_index, except: :index
 
   def index
     @posts= Post.all
   end
 
   def new
-    @posts= Post.new
+    @post= Post.new
   end
 
   def create
@@ -23,7 +23,7 @@ class PostsController < ApplicationController
 
  private
   def post_params
-    params.require(:post).permit(:image,:text,:name)
+    params.require(:post).permit(:image,:text,:name).merge(user_id: current_user.id)
   end
 
   def set_post
@@ -32,7 +32,7 @@ class PostsController < ApplicationController
 
   def move_to_index
     unless
-      user_sigined_in?
+      user_signed_in?
      redirect_to action: :index
     end
   end
